@@ -1,4 +1,4 @@
 (ns com.andmal.strs
   )
 
-(println (type (str "hello") ) )
+(println (type ( str "a" "b" "c" )  ) )

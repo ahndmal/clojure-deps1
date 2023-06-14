@@ -14,12 +14,11 @@
 (def restUrl "/rest/api/2/issue/")
 (def token 
   (.encodeToString 
-    (Base64/getEncoder) (.getBytes ("admin:admin") ) ) )
+    (Base64/getEncoder) (.getBytes "admin:admin" ) ) )
 
-;(def resp (.header "Authorization" ("Basic "+token ) 
- ;            (.header "Content-Type" "application/json" 
-  ;             (Unirest/get 
-   ;              (jiraUrl + restUrl) ) ) ) )
+(def resp (.header "Authorization" (str "Basic " token) 
+            (.header "Content-Type" "application/json" 
+              (Unirest/get (str jiraUrl restUrl) ) ) ) )
 
 ;(def respBody (.asString resp) )
 
