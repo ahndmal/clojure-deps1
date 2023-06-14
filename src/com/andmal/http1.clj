@@ -4,6 +4,8 @@
 
 (def resp (Unirest/get "http://example.com"))
 
-(println (.checkCreateClassLoader resp))
+(def body (.getBody (.asString resp) ) )
+
+(println body )
 
 
