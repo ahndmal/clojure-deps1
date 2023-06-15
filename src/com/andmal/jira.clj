@@ -5,11 +5,9 @@
   )
   (:require 
     [clojure.string :as str]
-    [clojure.data.json :as json]
-     )
+    [cheshire.core :as json] 
+   )
  )
-
-(println str "Java Version is " (System/getProperty "java.version"))
 
 (def jiraUrl "http://localhost:9600")
 (def restUrl "/rest/api/2/issue/")
@@ -21,18 +19,22 @@
   {"Authorization" (str "Basic" token) "Content-Type" "application/json"}
 )
 
-(def resp 
-  (.basicAuth 
-    (.headers 
-      (Unirest/get (str jiraUrl restUrl) ) headers) "admin" "admin") )
+(println str "Java Version is " (System/getProperty "java.version"))
 
-(def respBody (.getBody (.asString resp) ) )
+(def fullUrl (str jiraUrl restUrl) )
 
-(def status (.getStatus resp) )
+(defn get-isse [url token iKey] (
+  (let [req ( Unirest/get (str url iKey)) ] )
+  ;(def req1 (.headers req headers) )
+  ;(def req2 (.basicAuth req1 "admin" "admin") )
+  ;(def resp (.asString req2) )
+  ;(def jsonIssue (json/parse-string (.getBody resp) ) )
+  ) 
+)
 
-(println respBody)
-(println status)
 
-;(def issue (json/read-str respBody) )
+(get-isse fullUrl token "AAA-2")
 
-;(println issue)
+
+
+
