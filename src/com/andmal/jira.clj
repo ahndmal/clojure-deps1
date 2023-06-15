@@ -1,14 +1,15 @@
 (ns com.andmal.jira
   (:import 
     (kong.unirest HttpResponse HttpRequest Unirest Header)
-    (com.google.gson Gson JsonArray JsonObject )
     (java.util Base64) 
   )
   (:require 
-    [clojure.string :as str] )
+    [clojure.string :as str]
+    [clojure.data.json :as json]
+     )
  )
 
-(println (System/getProperty "java.version"))
+(println str "Java Version is " (System/getProperty "java.version"))
 
 (def jiraUrl "http://localhost:9600")
 (def restUrl "/rest/api/2/issue/")
@@ -16,10 +17,22 @@
   (.encodeToString 
     (Base64/getEncoder) (.getBytes "admin:admin" ) ) )
 
-(def resp (.header "Authorization" (str "Basic " token) 
-            (.header "Content-Type" "application/json" 
-              (Unirest/get (str jiraUrl restUrl) ) ) ) )
+(def headers 
+  {"Authorization" (str "Basic" token) "Content-Type" "application/json"}
+)
 
-;(def respBody (.asString resp) )
+(def resp 
+  (.basicAuth 
+    (.headers 
+      (Unirest/get (str jiraUrl restUrl) ) headers) "admin" "admin") )
 
-(println token)
+(def respBody (.getBody (.asString resp) ) )
+
+(def status (.getStatus resp) )
+
+(println respBody)
+(println status)
+
+;(def issue (json/read-str respBody) )
+
+;(println issue)
