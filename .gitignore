@@ -21,3 +21,4 @@ build
 .lsp
 .vscode
 .fleet
+.clj-kondo
