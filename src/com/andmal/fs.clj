@@ -9,10 +9,11 @@
     )
 )
 
-(def root "/home/andrii/_data")
-(def logFile "comments.log.2023-02-08.0")
+(def root "/home/andrii/Documents")
+;(def logFile "comments.log.2023-02-08.0")
 ;(def logPath (.toPath ( io/file (str root logFile ) ) ) ) 
 
+(def fileLines (Files/readAllLines (Path/of )))
 
 (def lines (IntStream/range 1 100) )
 

@@ -18,4 +18,6 @@ pom.xml.asc
 target
 .vscode
 build
-
+.lsp
+.vscode
+.fleet
